@@ -68,6 +68,19 @@
             border-bottom: 1px solid rgba(132, 140, 142, 0.3);
         }
 
+
+        /* Section offset for fixed header + nav link states */
+        section { scroll-margin-top: 5rem; }
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute; left: 0.75rem; right: 0.75rem; bottom: 0.1rem; height: 2px;
+            background: #75F4F4; box-shadow: 0 0 8px rgba(117, 244, 244, 0.8);
+            transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+        .nav-link.active { color: #75F4F4; }
+        .mobile-link.active { color: #75F4F4; background: rgba(117, 244, 244, 0.08); }
+
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #2a343a; }
@@ -80,24 +93,45 @@
     <header class="fixed w-full top-0 z-50 glass-nav transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0">
-                    <a href="#" class="text-2xl font-bold tracking-tighter text-white hover:text-aqua transition-colors text-shadow-modern">
-                        TG<span class="text-aqua drop-shadow-[0_0_8px_rgba(117,244,244,0.8)]">.</span>
-                    </a>
-                </div>
-                
+
+                <!-- Brand: photo + name + role -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <span class="relative">
+                        <img src="cv_me.jpg" alt="Tristen Govender" class="w-11 h-11 rounded-full object-cover ring-2 ring-aqua/70 group-hover:ring-aqua group-hover:shadow-glow transition-all duration-300">
+                        <span class="absolute -bottom-0.5 -right-0.5 flex h-3.5 w-3.5" title="Open to opportunities">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-400 border-2 border-iron"></span>
+                        </span>
+                    </span>
+                    <span class="leading-tight">
+                        <span class="block text-base font-bold text-white group-hover:text-aqua transition-colors text-shadow-modern">Tristen Govender</span>
+                        <span class="block text-xs font-mono text-olive tracking-wide">&lt;Software Engineer /&gt;</span>
+                    </span>
+                </a>
+
                 <!-- Desktop Menu -->
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-center space-x-8">
-                        <a href="#about" class="text-gray-200 hover:text-aqua px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                        <a href="#projects" class="text-gray-200 hover:text-aqua px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
-                        <a href="#contact" class="bg-aqua text-iron hover:bg-white hover:shadow-glow px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300">Contact Me</a>
+                <div class="hidden md:flex items-center">
+                    <nav class="flex items-center">
+                        <a href="#about" data-nav="about" class="nav-link text-gray-200 hover:text-aqua px-3 py-2 text-sm font-medium transition-colors"><span class="text-aqua font-mono text-xs mr-1.5">01</span>About</a>
+                        <a href="#projects" data-nav="projects" class="nav-link text-gray-200 hover:text-aqua px-3 py-2 text-sm font-medium transition-colors"><span class="text-aqua font-mono text-xs mr-1.5">02</span>Projects</a>
+                    </nav>
+
+                    <div class="h-6 w-px bg-white/10 mx-4"></div>
+
+                    <!-- Quick social links -->
+                    <div class="flex items-center gap-4 text-gray-300 mr-5">
+                        <a href="https://github.com/tristengovender" target="_blank" rel="noopener noreferrer" class="hover:text-aqua hover:-translate-y-0.5 transition-all" title="GitHub"><i class="fab fa-github text-xl"></i></a>
+                        <a href="https://linkedin.com/in/tristengovender" target="_blank" rel="noopener noreferrer" class="hover:text-aqua hover:-translate-y-0.5 transition-all" title="LinkedIn"><i class="fab fa-linkedin text-xl"></i></a>
                     </div>
+
+                    <a href="#contact" class="bg-aqua text-iron hover:bg-white hover:shadow-glow px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 flex items-center gap-2">
+                        <i class="fas fa-paper-plane text-xs"></i> Let's Talk
+                    </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-white hover:text-aqua focus:outline-none transition-colors">
+                    <button id="mobile-menu-btn" class="text-white hover:text-aqua focus:outline-none transition-colors" aria-label="Toggle menu">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
@@ -106,16 +140,24 @@
 
         <!-- Mobile Menu Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden glass-nav border-t border-white/10">
-            <div class="px-4 pt-2 pb-6 space-y-2">
-                <a href="#about" class="block text-gray-200 hover:text-aqua px-3 py-3 rounded-md text-base font-medium">About</a>
-                <a href="#projects" class="block text-gray-200 hover:text-aqua px-3 py-3 rounded-md text-base font-medium">Projects</a>
-                <a href="#contact" class="block bg-aqua text-iron font-bold hover:bg-white px-3 py-3 rounded-md text-base text-center mt-4">Contact</a>
+            <div class="px-4 pt-3 pb-6 space-y-1">
+                <a href="#home" data-nav="home" class="mobile-link flex items-center text-gray-200 hover:text-aqua px-3 py-3 rounded-md text-base font-medium"><i class="fas fa-house w-6 text-aqua"></i> Home</a>
+                <a href="#about" data-nav="about" class="mobile-link flex items-center text-gray-200 hover:text-aqua px-3 py-3 rounded-md text-base font-medium"><i class="fas fa-user w-6 text-aqua"></i> About</a>
+                <a href="#projects" data-nav="projects" class="mobile-link flex items-center text-gray-200 hover:text-aqua px-3 py-3 rounded-md text-base font-medium"><i class="fas fa-code w-6 text-aqua"></i> Projects</a>
+                <a href="#contact" class="block bg-aqua text-iron font-bold hover:bg-white px-3 py-3 rounded-md text-base text-center mt-4"><i class="fas fa-paper-plane mr-2 text-sm"></i>Let's Talk</a>
+                <div class="flex justify-center gap-8 pt-5 text-gray-300">
+                    <a href="https://github.com/tristengovender" target="_blank" rel="noopener noreferrer" class="hover:text-aqua transition-colors" title="GitHub"><i class="fab fa-github text-2xl"></i></a>
+                    <a href="https://linkedin.com/in/tristengovender" target="_blank" rel="noopener noreferrer" class="hover:text-aqua transition-colors" title="LinkedIn"><i class="fab fa-linkedin text-2xl"></i></a>
+                </div>
             </div>
         </div>
+
+        <!-- Scroll progress bar -->
+        <div id="scroll-progress" class="absolute bottom-0 left-0 h-[2px] bg-aqua shadow-glow" style="width:0%"></div>
     </header>
 
     <main class="pt-20">
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 flex flex-col-reverse lg:flex-row items-center justify-between min-h-[90vh] gap-12 lg:gap-8">
+        <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 flex flex-col-reverse lg:flex-row items-center justify-between min-h-[90vh] gap-12 lg:gap-8">
             
             <!-- Left Column: Hero Text Content -->
             <div class="w-full lg:w-3/5 text-center lg:text-left z-10">
@@ -217,7 +259,6 @@
                         <div class="flex justify-between items-center mb-6">
                             <span class="text-aqua text-sm font-bold tracking-widest uppercase font-mono bg-aqua/10 px-4 py-1.5 rounded-full border border-aqua/20">Featured Project</span>
                             <div class="flex gap-5 text-gray-300">
-                                
                                 <a href="https://github.com/SKTTGZa/KasiKart.git" target="_blank" rel="noopener noreferrer" class="hover:text-aqua hover:-translate-y-1 transition-all" title="View Source on GitHub"><i class="fab fa-github text-[1.4rem]"></i></a>
                             </div>
                         </div>
@@ -261,7 +302,6 @@
                         <div class="flex justify-between items-center mb-6">
                             <span class="text-aqua text-sm font-bold tracking-widest uppercase font-mono bg-aqua/10 px-4 py-1.5 rounded-full border border-aqua/20">In Progress</span>
                             <div class="flex gap-5 text-gray-300">
-                                
                                 <a href="https://github.com/Matris-Solutions/app-frontend.git" target="_blank" rel="noopener noreferrer" class="hover:text-aqua hover:-translate-y-1 transition-all" title="View Source on GitHub"><i class="fab fa-github text-[1.4rem]"></i></a>
                             </div>
                         </div>
@@ -299,19 +339,19 @@
             
             <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-6">
                 <!-- LinkedIn Button -->
-                <a href="https://linkedin.com/in/tristengovender" target="_blank" rel="noopener noreferrer" 
+                <a href="https://linkedin.com/in/tristen-govender" target="_blank" rel="noopener noreferrer" 
                    class="w-full sm:w-auto bg-[#0A66C2] text-white hover:bg-[#004182] px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-[0_0_20px_rgba(10,102,194,0.5)] hover:-translate-y-1">
                     <i class="fab fa-linkedin mr-3 text-2xl"></i> LinkedIn
                 </a>
                 
                 <!-- GitHub Button -->
-                <a href="https://github.com/tristengovender" target="_blank" rel="noopener noreferrer" 
+                <a href="https://github.com/SKTTGZa" target="_blank" rel="noopener noreferrer" 
                    class="w-full sm:w-auto bg-white text-gray-900 hover:bg-gray-200 px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] hover:-translate-y-1 border border-transparent hover:border-white">
                     <i class="fab fa-github mr-3 text-2xl"></i> GitHub
                 </a>
 
                 <!-- Email Button -->
-                <a href="mailto:tristen@example.com" 
+                <a href="mailto:trizhaas0369@gmail.com" 
                    class="w-full sm:w-auto glass-card text-white hover:border-aqua hover:text-aqua px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 flex items-center justify-center hover:-translate-y-1 hover:shadow-glow bg-iron/40 hover:bg-iron/60">
                     <i class="fas fa-envelope mr-3 text-xl"></i> Email
                 </a>
@@ -361,6 +401,23 @@
                 header.style.backgroundColor = 'rgba(67, 80, 88, 0.85)';
             }
         });
+
+        // Scroll spy (highlights current section) + progress bar
+        const spySections = ['home', 'about', 'projects', 'contact'].map(id => document.getElementById(id));
+        const spyLinks = document.querySelectorAll('[data-nav]');
+        const progress = document.getElementById('scroll-progress');
+
+        function updateNav() {
+            const y = window.scrollY + 140;
+            let current = 'home';
+            spySections.forEach(sec => { if (sec && sec.offsetTop <= y) current = sec.id; });
+            spyLinks.forEach(l => l.classList.toggle('active', l.dataset.nav === current));
+
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+        }
+        window.addEventListener('scroll', updateNav, { passive: true });
+        updateNav();
     </script>
 </body>
 </html>
