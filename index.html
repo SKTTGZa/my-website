@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tristen Govender | Software Engineer</title>
+    
+    <!-- External Fonts and Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Configuring the requested color palette in Tailwind -->
     <script>
@@ -20,27 +22,69 @@
                         'iron': '#435058',
                         'olive': '#848C8E',
                         'aqua': '#75F4F4',
+                    },
+                    boxShadow: {
+                        'glow': '0 0 30px rgba(117, 244, 244, 0.4)',
+                        'glow-lg': '0 0 50px rgba(117, 244, 244, 0.6)',
                     }
                 }
             }
         }
     </script>
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #435058; /* Iron Grey Main Background */
-            color: #f3f4f6; /* Light gray for high contrast readability */
+            background-image: radial-gradient(circle at 50% 0%, #4d5c65 0%, #435058 70%);
+            color: #f3f4f6;
         }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(117, 244, 244, 0.2); /* Aqua shadow */
+
+        /* Modern dark text shadows for high contrast instead of harsh outlines */
+        .text-shadow-modern {
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.5);
         }
-        /* Custom scrollbar for webkit */
+        
+        .text-shadow-heavy {
+            text-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Glassmorphism utility classes */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-nav {
+            background: rgba(67, 80, 88, 0.85); /* Iron grey with opacity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(132, 140, 142, 0.3); /* Olive border */
+        }
+
+        /* Image hover effect */
+        .hero-img-container::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #75F4F4, transparent, #848C8E, transparent, #75F4F4);
+            animation: rotate-gradient 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate-gradient {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
         }
         ::-webkit-scrollbar-track {
-            background: #435058; 
+            background: #2a343a; 
         }
         ::-webkit-scrollbar-thumb {
             background: #848C8E; 
@@ -53,22 +97,24 @@
 </head>
 <body class="antialiased selection:bg-aqua selection:text-iron">
 
-    <header class="fixed w-full top-0 z-50 bg-iron/95 backdrop-blur-md border-b border-olive">
+    <header class="fixed w-full top-0 z-50 glass-nav transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex-shrink-0">
-                    <a href="#" class="text-2xl font-bold tracking-tighter text-white hover:text-aqua transition-colors">
-                        TG<span class="text-aqua">.</span>
+                    <a href="#" class="text-2xl font-bold tracking-tighter text-white hover:text-aqua transition-colors text-shadow-modern">
+                        TG<span class="text-aqua drop-shadow-[0_0_8px_rgba(117,244,244,0.8)]">.</span>
                     </a>
                 </div>
+                
                 <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-center space-x-8">
-                        <a href="#about" class="text-white hover:text-aqua px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                        <a href="#projects" class="text-white hover:text-aqua px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
-                        <a href="#contact" class="bg-aqua text-iron hover:bg-white px-5 py-2.5 rounded-md text-sm font-bold transition-all duration-300 shadow-[0_0_15px_rgba(117,244,244,0.3)]">Contact Me</a>
+                        <a href="#about" class="text-gray-200 hover:text-aqua px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#projects" class="text-gray-200 hover:text-aqua px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
+                        <a href="#contact" class="bg-aqua text-iron hover:bg-white hover:shadow-glow px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300">Contact Me</a>
                     </div>
                 </div>
+
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-white hover:text-aqua focus:outline-none transition-colors">
@@ -77,120 +123,179 @@
                 </div>
             </div>
         </div>
+
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-olive border-b border-iron">
-            <div class="px-4 pt-2 pb-4 space-y-2 shadow-lg">
-                <a href="#about" class="block text-white hover:text-aqua px-3 py-2 rounded-md text-base font-medium">About</a>
-                <a href="#projects" class="block text-white hover:text-aqua px-3 py-2 rounded-md text-base font-medium">Projects</a>
-                <a href="#contact" class="block bg-aqua text-iron font-bold hover:bg-white px-3 py-2 rounded-md text-base text-center mt-4">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden glass-nav border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#about" class="block text-gray-200 hover:text-aqua px-3 py-3 rounded-md text-base font-medium">About</a>
+                <a href="#projects" class="block text-gray-200 hover:text-aqua px-3 py-3 rounded-md text-base font-medium">Projects</a>
+                <a href="#contact" class="block bg-aqua text-iron font-bold hover:bg-white px-3 py-3 rounded-md text-base text-center mt-4">Contact</a>
             </div>
         </div>
     </header>
 
     <main class="pt-20">
-        <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 flex flex-col justify-center min-h-[85vh]">
-            <p class="text-aqua font-semibold tracking-wider mb-3 uppercase text-sm">Hi, my name is</p>
-            <h1 class="text-5xl md:text-7xl font-bold mb-4 text-white">Tristen Govender.</h1>
-            <h2 class="text-4xl md:text-6xl font-bold text-gray-300 mb-6">Software Engineer.</h2>
-            <p class="text-gray-300 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
-                I am a passionate software engineer focused on building robust, scalable, and visually compelling digital experiences. I thrive on turning complex problems into elegant code.
-            </p>
-            <div class="flex gap-4">
-                <a href="#projects" class="border-2 border-aqua text-aqua hover:bg-aqua hover:text-iron px-8 py-3.5 rounded-md text-lg font-medium transition-all duration-300 shadow-[0_0_15px_rgba(117,244,244,0.1)]">
-                    View Projects
-                </a>
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 flex flex-col-reverse lg:flex-row items-center justify-between min-h-[90vh] gap-12">
+            
+            <!-- Hero Text Content -->
+            <div class="w-full lg:w-3/5 text-center lg:text-left">
+                <p class="text-aqua font-semibold tracking-wider mb-4 uppercase text-sm md:text-base drop-shadow-md">
+                    Hi, my name is
+                </p>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-4 text-white text-shadow-heavy tracking-tight">
+                    Tristen Govender.
+                </h1>
+                <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold text-olive mb-6 text-shadow-modern">
+                    Software Engineer.
+                </h2>
+                <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed drop-shadow-md font-light">
+                    I am a passionate software engineer focused on building robust, scalable, and visually compelling digital experiences. I thrive on turning complex problems into elegant code.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#projects" class="bg-aqua text-iron hover:bg-white px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 shadow-glow hover:shadow-glow-lg hover:-translate-y-1">
+                        View My Work
+                    </a>
+                    <a href="#contact" class="glass-card text-white hover:text-aqua hover:border-aqua px-8 py-4 rounded-full text-lg font-medium transition-all duration-300">
+                        Get In Touch
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Image Content -->
+            <div class="w-full lg:w-2/5 flex justify-center mb-10 lg:mb-0 relative">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full hero-img-container shadow-[0_0_50px_rgba(117,244,244,0.3)] z-10 flex items-center justify-center bg-iron p-1.5 transition-transform duration-500 hover:scale-105">
+                    <!-- Glass overlay inside border -->
+                    <div class="absolute inset-1 rounded-full bg-iron/50 backdrop-blur-sm z-0"></div>
+                    <!-- The exact requested image -->
+                    <img src="cv me.jpg" alt="Tristen Govender" class="relative z-10 w-full h-full object-cover rounded-full shadow-inner border-2 border-iron/80 fallback-bg">
+                </div>
+                <!-- Decorative background elements -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-aqua/10 blur-[100px] rounded-full z-0 pointer-events-none"></div>
             </div>
         </section>
 
-        <section id="about" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-olive">
-            <div class="flex flex-col md:flex-row gap-12 items-center">
-                <div class="md:w-3/5">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-8 flex items-center text-white">
-                        <span class="text-aqua mr-3 text-2xl font-normal">01.</span> About Me
-                        <div class="h-px bg-olive flex-grow ml-6"></div>
-                    </h2>
-                    <div class="space-y-5 text-gray-300 text-lg leading-relaxed">
+        <section id="about" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
+            <div class="glass-card rounded-3xl p-8 md:p-12 lg:p-16 relative overflow-hidden">
+                <!-- Abstract corner glow -->
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-aqua/20 blur-[80px] rounded-full pointer-events-none"></div>
+                
+                <h2 class="text-3xl md:text-4xl font-bold mb-10 flex items-center text-white text-shadow-modern">
+                    <span class="text-aqua mr-4 text-2xl font-light font-mono">01.</span> About Me
+                    <div class="h-px bg-white/20 flex-grow ml-6"></div>
+                </h2>
+                
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <div class="lg:w-2/3 space-y-6 text-gray-200 text-lg leading-relaxed font-light drop-shadow-sm">
                         <p>
-                            Hello! I'm Tristen, and I'm deeply enthusiastic about software architecture and creating seamless user experiences. My journey in tech is driven by a constant desire to learn and build tools that make an impact.
+                            Hello! I'm Tristen, and I'm deeply enthusiastic about software architecture and creating seamless, high-performance user experiences. My journey in tech is driven by a relentless curiosity and a desire to build tools that matter.
                         </p>
                         <p>
-                            I hold a <span class="text-aqua font-semibold">BSc in Information Technology</span>, specializing in Software Engineering from <span class="text-white font-semibold border-b border-aqua/50">Eduvos</span>. This rigorous academic background provided me with a rock-solid foundation in modern development practices, algorithms, and system design.
+                            I hold a <span class="text-aqua font-semibold">BSc in Information Technology</span>, specializing in Software Engineering from <strong class="text-white drop-shadow-md">Eduvos</strong>. This rigorous academic background provided me with a rock-solid foundation in modern development practices, complex algorithms, and robust system design.
                         </p>
                         <p>
-                            Professionally, I serve as a <span class="text-aqua font-semibold">Senior IT Trainer at Logiscool</span>. In this role, I don't just apply my technical skills; I distill complex programming concepts to educate and mentor aspiring developers. It's an incredibly rewarding position that constantly sharpens my own technical communication and problem-solving abilities.
+                            Professionally, I serve as a <span class="text-aqua font-semibold">Senior IT Trainer at Logiscool</span>. In this role, I don't just apply my technical skills; I distill complex programming concepts to educate and mentor aspiring developers. It's an incredibly rewarding position that constantly sharpens my own technical communication, debugging, and problem-solving abilities.
                         </p>
                     </div>
-                </div>
-                <div class="md:w-2/5 mt-10 md:mt-0 relative group flex justify-center">
-                    <div class="relative z-10 rounded-xl overflow-hidden border-2 border-olive bg-iron aspect-square w-full max-w-sm flex items-center justify-center transition-all duration-500 group-hover:border-aqua">
-                        <!-- Profile Image Placeholder -->
-                        <i class="fas fa-code text-8xl text-olive group-hover:text-aqua transition-colors duration-500 drop-shadow-lg"></i>
+                    
+                    <!-- Quick Stats/Skills -->
+                    <div class="lg:w-1/3 flex flex-col gap-4">
+                        <div class="glass-card p-6 rounded-2xl hover:border-aqua/50 transition-colors">
+                            <i class="fas fa-graduation-cap text-3xl text-aqua mb-3"></i>
+                            <h3 class="text-white font-semibold text-xl mb-1">Eduvos</h3>
+                            <p class="text-olive text-sm">BSc IT (Software Engineering)</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl hover:border-aqua/50 transition-colors">
+                            <i class="fas fa-chalkboard-teacher text-3xl text-aqua mb-3"></i>
+                            <h3 class="text-white font-semibold text-xl mb-1">Logiscool</h3>
+                            <p class="text-olive text-sm">Senior IT Trainer</p>
+                        </div>
                     </div>
-                    <!-- Decorative background accent -->
-                    <div class="absolute inset-0 max-w-sm mx-auto border-2 border-aqua rounded-xl transform translate-x-4 translate-y-4 -z-10 group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-500"></div>
                 </div>
             </div>
         </section>
 
-        <section id="projects" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-olive">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 flex items-center text-white">
-                <span class="text-aqua mr-3 text-2xl font-normal">02.</span> Featured Projects
-                <div class="h-px bg-olive flex-grow ml-6"></div>
+        <section id="projects" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 flex items-center text-white text-shadow-modern">
+                <span class="text-aqua mr-4 text-2xl font-light font-mono">02.</span> Featured Projects
+                <div class="h-px bg-white/20 flex-grow ml-6"></div>
             </h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="grid grid-cols-1 lg:grid-cols-1 gap-12">
                 <!-- Featured Project: KasiKart -->
-                <div class="project-card bg-olive rounded-xl overflow-hidden border border-iron transition-all duration-300 flex flex-col group relative">
-                    <!-- Project Image Area -->
-                    <div class="h-56 bg-iron flex items-center justify-center border-b border-iron relative overflow-hidden group-hover:bg-[#3a464d] transition-colors">
-                        <div class="absolute inset-0 bg-aqua/5 group-hover:bg-aqua/10 transition-colors"></div>
-                        <i class="fas fa-shopping-basket text-7xl text-gray-400 group-hover:text-aqua transition-colors duration-300 relative z-10 drop-shadow-md"></i>
+                <div class="glass-card rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(117,244,244,0.15)] flex flex-col lg:flex-row group border hover:border-aqua/40">
+                    
+                    <!-- Project Visual -->
+                    <div class="lg:w-5/12 bg-iron/50 relative overflow-hidden flex items-center justify-center p-12 border-b lg:border-b-0 lg:border-r border-white/10">
+                        <div class="absolute inset-0 bg-gradient-to-br from-aqua/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <i class="fas fa-shopping-cart text-8xl text-olive group-hover:text-aqua transition-colors duration-500 relative z-10 drop-shadow-xl transform group-hover:scale-110"></i>
                     </div>
+                    
                     <!-- Project Details -->
-                    <div class="p-8 flex flex-col flex-grow">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-aqua text-xs font-bold tracking-widest uppercase">Featured Project</span>
-                            <div class="flex gap-4 text-white">
-                                <a href="#" class="hover:text-aqua transition-colors" title="View Source"><i class="fab fa-github text-2xl"></i></a>
-                                <a href="#" class="hover:text-aqua transition-colors" title="Visit Live Site"><i class="fas fa-external-link-alt text-2xl"></i></a>
+                    <div class="lg:w-7/12 p-8 md:p-12 flex flex-col justify-center">
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="text-aqua text-sm font-bold tracking-widest uppercase font-mono bg-aqua/10 px-3 py-1 rounded-full">Featured Project</span>
+                            <div class="flex gap-4 text-gray-300">
+                                <a href="#" class="hover:text-aqua hover:-translate-y-1 transition-all" title="View Source"><i class="fab fa-github text-2xl"></i></a>
+                                <a href="#" class="hover:text-aqua hover:-translate-y-1 transition-all" title="Visit Live Site"><i class="fas fa-external-link-alt text-xl"></i></a>
                             </div>
                         </div>
-                        <h3 class="text-3xl font-bold mb-4 text-white group-hover:text-aqua transition-colors"><a href="#">KasiKart</a></h3>
-                        <p class="text-gray-200 mb-6 flex-grow leading-relaxed">
-                            A fully custom web-hosted e-commerce platform tailored for local markets. It features a scalable architecture, a dynamic product catalog, and a streamlined checkout process. Built entirely from the ground up to ensure high performance and an intuitive user experience.
-                        </p>
-                        <ul class="flex flex-wrap gap-3 text-sm font-semibold text-iron">
-                            <li class="bg-aqua px-4 py-1.5 rounded-full shadow-sm">Custom Web Hosted</li>
-                            <li class="bg-gray-300 px-4 py-1.5 rounded-full">Full-Stack</li>
-                            <li class="bg-gray-300 px-4 py-1.5 rounded-full">UI/UX</li>
+                        
+                        <h3 class="text-3xl md:text-4xl font-bold mb-4 text-white text-shadow-modern group-hover:text-aqua transition-colors">KasiKart</h3>
+                        
+                        <div class="glass-card p-5 rounded-xl mb-6 relative z-10 -ml-0 lg:-ml-12 shadow-lg">
+                            <p class="text-gray-200 leading-relaxed font-light text-sm md:text-base">
+                                A fully custom web-hosted e-commerce platform explicitly tailored for local markets. It features a scalable backend architecture, a dynamic product catalog, and a highly streamlined, secure checkout process. Built entirely from the ground up to ensure elite performance and an intuitive, accessible user experience.
+                            </p>
+                        </div>
+                        
+                        <ul class="flex flex-wrap gap-3 text-xs md:text-sm font-mono text-aqua/90 mt-auto">
+                            <li><i class="fas fa-server mr-1"></i> Web Hosted</li>
+                            <li class="px-2 text-olive">•</li>
+                            <li>Full-Stack Development</li>
+                            <li class="px-2 text-olive">•</li>
+                            <li>Custom UI/UX</li>
+                            <li class="px-2 text-olive">•</li>
+                            <li>E-Commerce</li>
                         </ul>
                     </div>
                 </div>
+                <!-- Additional projects can be added here following the same glass-card structure -->
             </div>
         </section>
 
-        <section id="contact" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
-            <h2 class="text-aqua font-semibold tracking-widest uppercase text-sm mb-3">03. What's Next?</h2>
-            <h2 class="text-4xl md:text-6xl font-bold mb-8 text-white">Get In Touch</h2>
-            <p class="text-gray-300 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-                I'm currently looking for new opportunities to leverage my software engineering skills. Whether you have a question, a potential role, or just want to connect, I'd love to hear from you.
+        <section id="contact" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center relative">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-aqua/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+            
+            <h2 class="text-aqua font-mono tracking-widest uppercase text-sm mb-4">03. What's Next?</h2>
+            <h2 class="text-5xl md:text-7xl font-bold mb-8 text-white text-shadow-heavy">Get In Touch</h2>
+            <p class="text-gray-300 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed font-light drop-shadow-sm">
+                I'm currently seeking new opportunities to leverage my software engineering skills in an innovative environment. Whether you have a question, a potential role, or just want to connect, my inbox is always open.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-6">
-                <!-- LinkedIn Button matching the specific palette -->
-                <a href="https://www.linkedin.com/in/tristen-govender" target="_blank" rel="noopener noreferrer" 
-                   class="bg-aqua text-iron hover:bg-white px-8 py-4 rounded-md text-lg font-bold transition-all duration-300 flex items-center justify-center shadow-[0_0_20px_rgba(117,244,244,0.4)] hover:-translate-y-1">
-                    <i class="fab fa-linkedin mr-3 text-2xl"></i> Connect on LinkedIn
+            
+            <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-6">
+                <!-- LinkedIn Button -->
+                <a href="https://linkedin.com/in/tristengovender" target="_blank" rel="noopener noreferrer" 
+                   class="w-full sm:w-auto bg-[#0A66C2] text-white hover:bg-[#004182] px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-[0_0_20px_rgba(10,102,194,0.5)] hover:-translate-y-1">
+                    <i class="fab fa-linkedin mr-3 text-2xl"></i> LinkedIn
                 </a>
-                <a href="mailto:trizhaas0369@gmail.com" 
-                   class="border-2 border-olive text-white hover:border-aqua hover:text-aqua px-8 py-4 rounded-md text-lg font-bold transition-all duration-300 flex items-center justify-center">
-                    <i class="fas fa-envelope mr-3 text-xl"></i> Send an Email
+                
+                <!-- NEW Prominent GitHub Button -->
+                <a href="https://github.com/tristengovender" target="_blank" rel="noopener noreferrer" 
+                   class="w-full sm:w-auto bg-white text-gray-900 hover:bg-gray-200 px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] hover:-translate-y-1">
+                    <i class="fab fa-github mr-3 text-2xl"></i> GitHub
+                </a>
+
+                <!-- Email Button -->
+                <a href="mailto:tristen@example.com" 
+                   class="w-full sm:w-auto glass-card text-white hover:border-aqua hover:text-aqua px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 flex items-center justify-center hover:-translate-y-1 hover:shadow-glow">
+                    <i class="fas fa-envelope mr-3 text-xl"></i> Email
                 </a>
             </div>
         </section>
     </main>
 
-    <footer class="py-8 text-center text-gray-400 text-sm border-t border-olive bg-iron">
-        <p class="mb-2">Designed & Built by <span class="text-aqua font-medium">Tristen Govender</span></p>
+    <footer class="py-8 text-center text-gray-400 text-sm border-t border-white/10 glass-nav mt-12 relative z-10">
+        <p class="mb-2">Designed & Built by <span class="text-aqua font-medium drop-shadow-sm">Tristen Govender</span></p>
         <p>&copy; <span id="year"></span> All rights reserved.</p>
     </footer>
 
@@ -222,6 +327,18 @@
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
             });
+        });
+
+        // Add a slight blur effect to navbar on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-lg');
+                header.style.backgroundColor = 'rgba(67, 80, 88, 0.95)';
+            } else {
+                header.classList.remove('shadow-lg');
+                header.style.backgroundColor = 'rgba(67, 80, 88, 0.85)';
+            }
         });
     </script>
 </body>
